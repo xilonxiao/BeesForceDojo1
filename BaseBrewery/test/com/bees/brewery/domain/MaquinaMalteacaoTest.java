@@ -1,7 +1,5 @@
-import com.bees.brewery.domain.Maquina;
-import com.bees.brewery.domain.MaquinaMalteacao;
-import com.bees.brewery.domain.Processo;
-import com.bees.brewery.domain.ProcessoMalteacao;
+package com.bees.brewery.domain;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
