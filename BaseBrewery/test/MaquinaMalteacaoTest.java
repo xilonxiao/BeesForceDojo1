@@ -49,4 +49,14 @@ public class MaquinaMalteacaoTest {
 
         Assert.assertEquals(MaquinaMalteacao.VAZAO, vazao, 0.1);
     }
+
+    @Test
+    public void checkSetQuantidadeMalteacaoOK() {
+        Assert.assertTrue(maquina.setQuantidade(750));
+    }
+
+    @Test
+    public void checkSetQuantidadeMalteacaoNotOK() {
+        Assert.assertFalse(maquina.setQuantidade(1200));
+    }
 }

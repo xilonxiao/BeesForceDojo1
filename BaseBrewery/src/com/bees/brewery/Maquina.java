@@ -6,8 +6,13 @@ public abstract class Maquina {
         return quantidade;
     }
 
-    public void setQuantidade(float quantidade) {
-        this.quantidade = quantidade;
+    public boolean setQuantidade(float quantidade) {
+        if (quantidade <= getCapacidade()) {
+            this.quantidade = quantidade;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public float getCapacidade() {
