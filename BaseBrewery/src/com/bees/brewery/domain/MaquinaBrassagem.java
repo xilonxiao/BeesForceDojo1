@@ -12,7 +12,7 @@ public class MaquinaBrassagem extends Maquina {
 
     @Override
     public Boolean executar(Processo p, Observable observable, Observable observableStatus) {
-        return null;
+        return p.executar(observable, getDuration(), observableStatus);
     }
 
     public long getDuration() {

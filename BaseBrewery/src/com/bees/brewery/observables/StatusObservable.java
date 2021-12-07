@@ -12,4 +12,8 @@ public class StatusObservable extends Observable {
         setChanged();
         notifyObservers(status);
     }
+
+    public Status getStatus() {
+        return this.status;
+    }
 }

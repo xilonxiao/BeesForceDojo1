@@ -1,12 +1,9 @@
 package com.bees.brewery.ui;
 
-import com.bees.brewery.domain.Maquina;
-import com.bees.brewery.domain.MaquinaMalteacao;
-import com.bees.brewery.domain.Processo;
-import com.bees.brewery.domain.ProcessoMalteacao;
+import com.bees.brewery.domain.*;
 import com.bees.brewery.core.Grao;
 import com.bees.brewery.core.Status;
-import com.bees.brewery.observables.MalteacaoObservable;
+import com.bees.brewery.observables.ProcessoObservable;
 import com.bees.brewery.observables.StatusObservable;
 
 import javax.swing.*;
@@ -14,9 +11,12 @@ import java.awt.*;
 
 public class BreweryUI {
 
-    MalteacaoObservable malteacaoObservable = new MalteacaoObservable();
+    ProcessoObservable processoObservable = new ProcessoObservable();
     StatusObservable statusObservable = new StatusObservable();
     JFrame frame;
+
+    JLabel label_status_brasagem;
+    JButton button_malteacao;
 
     public void execute() {
 
@@ -76,26 +76,42 @@ public class BreweryUI {
         label_status = new JLabel("");
         label_status.setBounds(20, 130, 300, 60);
 
-        JButton button_malteacao = new JButton("Inicializar");
-        button_malteacao.setBounds(260, 165, 90, 25);
+        button_malteacao = new JButton("Inicializar");
+        button_malteacao.setBounds(250, 550, 110, 40);
 
         button_malteacao.addActionListener(e -> {
             if(campoNumerico(area_quant_kg.getText())){
                 Maquina maquinaMalteacao = new MaquinaMalteacao();
+                Maquina maquinaBrassagem = new MaquinaBrassagem();
+
                 if (maquinaMalteacao.setQuantidade(Float.parseFloat(area_quant_kg.getText()))) {
                     Processo processoMalteacao = new ProcessoMalteacao();
+                    Processo processoBrassagem = new ProcessoBrassagem();
+
                     maquinaMalteacao.setIngrediente(tipo_grao[combo_box_tipo_grao.getSelectedIndex()]);
 
-                    malteacaoObservable.addObserver((observable, o) -> label_status.setText((String) o));
-
-                    statusObservable.addObserver((o, arg) -> {
-                        if (Status.FINISHED.equals(arg)) {
-                            float resultado = maquinaMalteacao.getProdutoFinal();
-                            label_status.setText("Processo de Malteação Finalizado! Gerou: " + resultado + " Kgs de Malte");
+                    processoObservable.addObserver((observable, arg) -> {
+                        if (Status.IN_PROGRESS_BRASSAGEM.equals(statusObservable.getStatus())) {
+                            label_status_brasagem.setText((String) arg);
+                        } else if (Status.IN_PROGRESS_MALTEACAO.equals(statusObservable.getStatus())) {
+                            label_status.setText((String) arg);
                         }
                     });
 
-                    maquinaMalteacao.executar(processoMalteacao, malteacaoObservable, statusObservable);
+                    statusObservable.addObserver((o, arg) -> {
+                        if (Status.FINISHED_MALTEACAO.equals(arg)) {
+                            float resultado = maquinaMalteacao.getProdutoFinal();
+                            label_status.setText("Processo de Malteação Finalizado! Gerou: " + resultado + " Kgs de Malte");
+
+                            maquinaBrassagem.setQuantidade(resultado);
+                            maquinaBrassagem.setIngrediente("Malte");
+                            maquinaBrassagem.executar(processoBrassagem, processoObservable, statusObservable);
+                        } else if (Status.FINISHED_BRASSAGEM.equals(arg)) {
+                            label_status_brasagem.setText("Processo de Brassagem Finalizado!");
+                        }
+                    });
+
+                    maquinaMalteacao.executar(processoMalteacao, processoObservable, statusObservable);
                 } else {
                     label_status.setText("O valor digitado está acima da capaciade da máquina!!");
                 }
@@ -132,14 +148,18 @@ public class BreweryUI {
 
         label_timer_brasagem = new JLabel("Timer: ");
         label_timer_brasagem.setBounds(20, 260, 50, 30);
-        JLabel label_timer_brasagem_num;
 
+        label_status_brasagem = new JLabel("");
+        label_status_brasagem.setBounds(20, 280, 200, 30);
+
+        JLabel label_timer_brasagem_num;
         label_timer_brasagem_num = new JLabel("5");
         label_timer_brasagem_num.setBounds(70, 260, 50, 30);
 
         frame.add(label_brasagem);
         frame.add(label_temp_brasagem);
         frame.add(label_timer_brasagem);
+        frame.add(label_status_brasagem);
         frame.add(label_timer_brasagem_num);
         frame.add(panel_brasagem);
     }

@@ -8,14 +8,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Observable;
 
-public class ProcessoMalteacao implements Processo {
-    private List<String> processosInternos = Arrays.asList("Umedecer", "Secar", "Torrar");
+public class ProcessoBrassagem implements Processo {
+    private List<String> processosInternos = Arrays.asList("Cozimento");
 
     @Override
     public Boolean executar(Observable observableProcesso, long duration, Observable observableStatus) {
-        Thread execution = new Thread("ProcessoMalteacao Thread") {
+        Thread execution = new Thread("ProcessoBrassagem Thread") {
             public void run() {
-                ((StatusObservable) observableStatus).setStatus(Status.IN_PROGRESS_MALTEACAO);
+                ((StatusObservable) observableStatus).setStatus(Status.IN_PROGRESS_BRASSAGEM);
 
                 for (String processoInterno: processosInternos) {
                     ((ProcessoObservable) observableProcesso).setProcesso(processoInterno +"...");
@@ -26,8 +26,7 @@ public class ProcessoMalteacao implements Processo {
                         e.printStackTrace();
                     }
                 }
-
-                ((StatusObservable) observableStatus).setStatus(Status.FINISHED_MALTEACAO);
+                ((StatusObservable) observableStatus).setStatus(Status.FINISHED_BRASSAGEM);
             }
         };
         execution.start();
