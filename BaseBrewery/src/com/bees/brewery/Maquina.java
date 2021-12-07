@@ -2,6 +2,39 @@ package com.bees.brewery;
 
 public abstract class Maquina {
 
+    public float getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(float quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public float getCapacidade() {
+        return capacidade;
+    }
+
+    public float getVazao() {
+        return vazao;
+    }
+
+    public float getTaxaDePerdas() {
+        return taxaDePerdas;
+    }
+
+    public long getTempoDeExecucao() {
+        return tempoDeExecucao;
+    }
+
+    public void setTempoDeExecucao(long tempoDeExecucao) {
+        this.tempoDeExecucao = tempoDeExecucao;
+    }
+
+    /**
+     * Quantidade de ingrediente inserida na máquina
+     */
+    protected float quantidade;
+
     /**
      * Capacidade da maquina (kg), positivo. Ex: 99.2 kg
      */
@@ -21,6 +54,15 @@ public abstract class Maquina {
      * Tempo de execução da maquina, em segundos. Ex: 1000 seg
      */
     protected long tempoDeExecucao;
+
+    public float getProdutoFinal() {
+        return produtoFinal;
+    }
+
+    /**
+     * Quantidade de produto resultante dos processos da máquina
+     */
+    protected float produtoFinal;
 
     /**
      * Executar processo da maquina

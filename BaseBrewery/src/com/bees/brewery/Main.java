@@ -5,9 +5,12 @@ public class Main {
     public static void main(String[] args) {
 	    // write your code here
         Maquina maquinaMalteacao = new MaquinaMalteacao();
-        Processo processoUmidecer = new ProcessoMalteacao();
+        maquinaMalteacao.setQuantidade(300);
+        Processo processoMalteacao = new ProcessoMalteacao();
 
-        maquinaMalteacao.executar(processoUmidecer);
+        if (maquinaMalteacao.executar(processoMalteacao)) {
+            float resultado = maquinaMalteacao.getProdutoFinal();
+        }
 
 //        SwingExamples examples = new SwingExamples();
 //        examples.execute();
