@@ -6,6 +6,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Observable;
+
 import static org.junit.Assert.*;
 
 public class MaquinaMalteacaoTest {
@@ -21,7 +23,7 @@ public class MaquinaMalteacaoTest {
 
     @Test
     public void checkIfExecuteMethodReturnsTrue() {
-        Boolean success = maquina.executar(processo);
+        Boolean success = maquina.executar(processo, new Observable());
 
         Assert.assertTrue(success);
     }

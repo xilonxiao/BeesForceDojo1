@@ -1,5 +1,7 @@
 package com.bees.brewery;
 
+import java.util.Observable;
+
 public class MaquinaMalteacao extends Maquina {
 
     public static float CAPACIDADE = 1000;
@@ -8,8 +10,8 @@ public class MaquinaMalteacao extends Maquina {
     public static int TAXA_PERDA_MAX = 5;
 
     @Override
-    public Boolean executar(Processo p) {
-        return p.executar();
+    public Boolean executar(Processo p, Observable observable) {
+        return p.executar(observable);
     }
 
     @Override

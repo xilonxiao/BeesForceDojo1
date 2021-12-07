@@ -1,8 +1,12 @@
 package com.bees.brewery;
 import javax.swing.*;
 import java.awt.*;
+import java.util.Observable;
+import java.util.Observer;
 
 public class SwingExamples {
+
+    MalteacaoObservable malteacaoObservable = new MalteacaoObservable();
 
     public void execute() {
         //Creating the Frame
@@ -21,7 +25,13 @@ public class SwingExamples {
         JLabel label_tipo_grao;
         label_tipo_grao = new JLabel("Selecione o seu grão:");
         label_tipo_grao.setBounds(20,80, 150,30);
-        String tipo_grao[]={"Cevada","Aveia","Arroz","Trigo","Milho"};
+        String tipo_grao[] = {
+                Grao.ARROZ.getValue(),
+                Grao.AVEIA.getValue(),
+                Grao.TRIGO.getValue(),
+                Grao.MILHO.getValue(),
+                Grao.CEVADA.getValue()
+        };
         JComboBox combo_box_tipo_grao =new JComboBox(tipo_grao);
         combo_box_tipo_grao.setBounds(150, 85,90,20);
         JLabel label_quant_kg;
@@ -34,17 +44,25 @@ public class SwingExamples {
         label_status.setBounds(20,130, 300,30);
         JButton button_malteacao = new JButton("Inicializar");
         button_malteacao.setBounds(260,165,90,25);
+
         button_malteacao.addActionListener(e -> {
             if(campoNumerico(area_quant_kg.getText())){
                 Maquina maquinaMalteacao = new MaquinaMalteacao();
                 if (maquinaMalteacao.setQuantidade(Float.parseFloat(area_quant_kg.getText()))) {
                     Processo processoMalteacao = new ProcessoMalteacao();
+                    maquinaMalteacao.setIngrediente(tipo_grao[combo_box_tipo_grao.getSelectedIndex()]);
 
-                    if (maquinaMalteacao.executar(processoMalteacao)) {
+                    malteacaoObservable.addObserver(new Observer() {
+                        @Override
+                        public void update(Observable observable, Object o) {
+                            label_status.setText((String) o);
+                        }
+                    });
+
+                    if (maquinaMalteacao.executar(processoMalteacao, malteacaoObservable)) {
                         float resultado = maquinaMalteacao.getProdutoFinal();
                     }
                     //Chamar metodo de inicializar o processo
-                    label_status.setText("Inicializando malteação!!");
                 } else {
                     label_status.setText("O valor digitado está acima da capaciade da máquina!!");
                 }
@@ -52,6 +70,8 @@ public class SwingExamples {
                 label_status.setText("Digitar apenas números!!");
             }
         });
+
+
         // Panel brasagem
         JPanel panel_brasagem = new JPanel();
         panel_brasagem.setBounds(10,210,350,100);

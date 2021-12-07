@@ -1,6 +1,8 @@
 package com.bees.brewery;
 
+import java.util.Observable;
+
 public interface Processo {
 
-    Boolean executar();
+    Boolean executar(Observable observable);
 }
