@@ -1,25 +1,26 @@
 package com.bees.brewery;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Observable;
 
 public class ProcessoMalteacao implements Processo {
+    private List<String> processosInternos = Arrays.asList("Umedecer", "Secar", "Torrar");
+
     @Override
-    public Boolean executar(Observable observable) {
+    public Boolean executar(Observable observableProcesso, long duration, Observable observableStatus) {
         Thread execution = new Thread("MaquinaMalteacao Thread") {
             public void run() {
-                ((MalteacaoObservable) observable).setStatus("Umidecer...");
-                try {
-                    sleep(1000);
-                } catch (Exception e) {
-                    e.printStackTrace();
+                for (String processoInterno: processosInternos) {
+                    ((MalteacaoObservable) observableProcesso).setProcesso(processoInterno +"...");
+
+                    try {
+                        sleep(duration/ processosInternos.size());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-                ((MalteacaoObservable) observable).setStatus("Secar...");
-                try {
-                    sleep(1000);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                ((MalteacaoObservable) observable).setStatus("Torrar...");
+                ((StatusObservable) observableStatus).setStatus(Status.FINISHED);
             }
         };
         execution.start();

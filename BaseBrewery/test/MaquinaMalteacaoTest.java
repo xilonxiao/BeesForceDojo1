@@ -23,7 +23,7 @@ public class MaquinaMalteacaoTest {
 
     @Test
     public void checkIfExecuteMethodReturnsTrue() {
-        Boolean success = maquina.executar(processo, new Observable());
+        Boolean success = maquina.executar(processo, new Observable(), new Observable());
 
         Assert.assertTrue(success);
     }

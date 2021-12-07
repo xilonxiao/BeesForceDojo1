@@ -3,11 +3,11 @@ package com.bees.brewery;
 import java.util.Observable;
 
 public class MalteacaoObservable extends Observable {
-    private String status;
+    private String processo;
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setProcesso(String processo) {
+        this.processo = processo;
         setChanged();
-        notifyObservers(status);
+        notifyObservers(processo);
     }
 }

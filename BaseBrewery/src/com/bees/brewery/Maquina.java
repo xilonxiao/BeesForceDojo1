@@ -44,7 +44,7 @@ public abstract class Maquina {
      * @param p processo
      * @return true se com sucesso, false com falha.
      */
-    public abstract Boolean executar(Processo p /* processo. Ex: Moagem, Filtragem, Separação */, Observable observable);
+    public abstract Boolean executar(Processo p, Observable observable, Observable observableStatus);
 
     public float getQuantidade() {
         return quantidade;

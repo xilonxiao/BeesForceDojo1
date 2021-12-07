@@ -10,8 +10,12 @@ public class MaquinaMalteacao extends Maquina {
     public static int TAXA_PERDA_MAX = 5;
 
     @Override
-    public Boolean executar(Processo p, Observable observable) {
-        return p.executar(observable);
+    public Boolean executar(Processo p, Observable observable, Observable observableStatus) {
+        return p.executar(observable, getDuration(), observableStatus);
+    }
+
+    public long getDuration() {
+        return (long) (getQuantidade()/VAZAO) * 1000;
     }
 
     @Override
