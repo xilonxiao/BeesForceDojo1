@@ -17,6 +17,7 @@ public class BreweryUI {
 
     JLabel label_status_brasagem;
     JLabel label_status_filtragem;
+    JLabel label_status_fervura;
     JButton button_malteacao;
 
     public void execute() {
@@ -85,11 +86,13 @@ public class BreweryUI {
                 Maquina maquinaMalteacao = new MaquinaMalteacao();
                 Maquina maquinaBrassagem = new MaquinaBrassagem();
                 Maquina maquinaFiltragem = new MaquinaFiltragem();
+                Maquina maquinaFervura = new MaquinaFervura();
 
                 if (maquinaMalteacao.setQuantidade(Float.parseFloat(area_quant_kg.getText()))) {
                     Processo processoMalteacao = new ProcessoMalteacao();
                     Processo processoBrassagem = new ProcessoBrassagem();
                     Processo processoFiltragem = new ProcessoFiltragem();
+                    Processo processoFervura = new ProcessoFervura();
 
                     maquinaMalteacao.setIngrediente(tipo_grao[combo_box_tipo_grao.getSelectedIndex()]);
 
@@ -100,6 +103,8 @@ public class BreweryUI {
                             label_status.setText((String) arg);
                         } else if (Status.IN_PROGRESS_FILTRAGEM.equals(statusObservable.getStatus())) {
                             label_status_filtragem.setText((String) arg);
+                        } else if (Status.IN_PROGRESS_FERVURA.equals(statusObservable.getStatus())) {
+                            label_status_fervura.setText((String) arg);
                         }
                     });
 
@@ -117,6 +122,10 @@ public class BreweryUI {
                             maquinaFiltragem.executar(processoFiltragem, processoObservable, statusObservable);
                         } else if (Status.FINISHED_FILTRAGEM.equals(arg)) {
                             label_status_filtragem.setText("Processo de Filtragem Finalizado!");
+
+                            maquinaFervura.executar(processoFervura, processoObservable, statusObservable);
+                        } else if (Status.FINISHED_FERVURA.equals(arg)) {
+                            label_status_fervura.setText("Processo de Fervura Finalizado!");
                         }
                     });
 
@@ -149,27 +158,12 @@ public class BreweryUI {
 
         label_brasagem = new JLabel("Brasagem");
         label_brasagem.setBounds(20, 210, 100, 30);
-        JLabel label_temp_brasagem;
-
-        label_temp_brasagem = new JLabel("Temperatura: 26C");
-        label_temp_brasagem.setBounds(20, 240, 150, 30);
-        JLabel label_timer_brasagem;
-
-        label_timer_brasagem = new JLabel("Timer: ");
-        label_timer_brasagem.setBounds(20, 260, 50, 30);
 
         label_status_brasagem = new JLabel("");
-        label_status_brasagem.setBounds(20, 280, 200, 30);
-
-        JLabel label_timer_brasagem_num;
-        label_timer_brasagem_num = new JLabel("5");
-        label_timer_brasagem_num.setBounds(70, 260, 50, 30);
+        label_status_brasagem.setBounds(20, 260, 300, 30);
 
         frame.add(label_brasagem);
-        frame.add(label_temp_brasagem);
-        frame.add(label_timer_brasagem);
         frame.add(label_status_brasagem);
-        frame.add(label_timer_brasagem_num);
         frame.add(panel_brasagem);
     }
 
@@ -183,21 +177,13 @@ public class BreweryUI {
         label_filtragem = new JLabel("Filtragem");
         label_filtragem.setBounds(20, 320, 100, 30);
 
-        JLabel label_timer_filtragem;
-        label_timer_filtragem = new JLabel("Timer: ");
-        label_timer_filtragem.setBounds(20, 350, 50, 30);
 
         label_status_filtragem = new JLabel("");
-        label_status_filtragem.setBounds(20, 370, 200, 30);
+        label_status_filtragem.setBounds(20, 350, 300, 30);
 
-        JLabel label_timer_filtragem_num;
-        label_timer_filtragem_num = new JLabel("87");
-        label_timer_filtragem_num.setBounds(70, 350, 50, 30);
 
         frame.add(label_filtragem);
         frame.add(label_status_filtragem);
-        frame.add(label_timer_filtragem_num);
-        frame.add(label_timer_filtragem);
         frame.add(panel_filtragem);
     }
 
@@ -211,7 +197,11 @@ public class BreweryUI {
         label_fervura = new JLabel("Fervura");
         label_fervura.setBounds(20, 430, 100, 30);
 
+        label_status_fervura = new JLabel("");
+        label_status_fervura.setBounds(20, 450, 300, 30);
+
         frame.add(label_fervura);
+        frame.add(label_status_fervura);
         frame.add(panel_fervura);
     }
 
