@@ -10,6 +10,8 @@ public class MaquinaMalteacao extends Maquina {
     public static float VAZAO = 100;
     public static int TAXA_PERDA_MIN = 1;
     public static int TAXA_PERDA_MAX = 5;
+    public static int HUNDRED_PER_CENT = 100;
+    public static int SECONDS_TO_MILLISECONDS = 1000;
 
     @Override
     public Boolean executar(Processo p, Observable observable, Observable observableStatus) {
@@ -17,7 +19,7 @@ public class MaquinaMalteacao extends Maquina {
     }
 
     public long getDuration() {
-        return (long) (getQuantidade()/VAZAO) * 1000;
+        return (long) (getQuantidade()/VAZAO) * SECONDS_TO_MILLISECONDS;
     }
 
     @Override
@@ -37,6 +39,6 @@ public class MaquinaMalteacao extends Maquina {
 
     @Override
     public float getTaxaDePerdas() {
-        return (float) RandomUtil.getRandom(TAXA_PERDA_MIN, TAXA_PERDA_MAX) / 100;
+        return (float) RandomUtil.getRandom(TAXA_PERDA_MIN, TAXA_PERDA_MAX) / HUNDRED_PER_CENT;
     }
 }

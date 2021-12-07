@@ -16,6 +16,7 @@ public class BreweryUI {
     JFrame frame;
 
     JLabel label_status_brasagem;
+    JLabel label_status_filtragem;
     JButton button_malteacao;
 
     public void execute() {
@@ -83,10 +84,12 @@ public class BreweryUI {
             if(campoNumerico(area_quant_kg.getText())){
                 Maquina maquinaMalteacao = new MaquinaMalteacao();
                 Maquina maquinaBrassagem = new MaquinaBrassagem();
+                Maquina maquinaFiltragem = new MaquinaFiltragem();
 
                 if (maquinaMalteacao.setQuantidade(Float.parseFloat(area_quant_kg.getText()))) {
                     Processo processoMalteacao = new ProcessoMalteacao();
                     Processo processoBrassagem = new ProcessoBrassagem();
+                    Processo processoFiltragem = new ProcessoFiltragem();
 
                     maquinaMalteacao.setIngrediente(tipo_grao[combo_box_tipo_grao.getSelectedIndex()]);
 
@@ -95,6 +98,8 @@ public class BreweryUI {
                             label_status_brasagem.setText((String) arg);
                         } else if (Status.IN_PROGRESS_MALTEACAO.equals(statusObservable.getStatus())) {
                             label_status.setText((String) arg);
+                        } else if (Status.IN_PROGRESS_FILTRAGEM.equals(statusObservable.getStatus())) {
+                            label_status_filtragem.setText((String) arg);
                         }
                     });
 
@@ -108,6 +113,10 @@ public class BreweryUI {
                             maquinaBrassagem.executar(processoBrassagem, processoObservable, statusObservable);
                         } else if (Status.FINISHED_BRASSAGEM.equals(arg)) {
                             label_status_brasagem.setText("Processo de Brassagem Finalizado!");
+
+                            maquinaFiltragem.executar(processoFiltragem, processoObservable, statusObservable);
+                        } else if (Status.FINISHED_FILTRAGEM.equals(arg)) {
+                            label_status_filtragem.setText("Processo de Filtragem Finalizado!");
                         }
                     });
 
@@ -178,11 +187,15 @@ public class BreweryUI {
         label_timer_filtragem = new JLabel("Timer: ");
         label_timer_filtragem.setBounds(20, 350, 50, 30);
 
+        label_status_filtragem = new JLabel("");
+        label_status_filtragem.setBounds(20, 370, 200, 30);
+
         JLabel label_timer_filtragem_num;
         label_timer_filtragem_num = new JLabel("87");
         label_timer_filtragem_num.setBounds(70, 350, 50, 30);
 
         frame.add(label_filtragem);
+        frame.add(label_status_filtragem);
         frame.add(label_timer_filtragem_num);
         frame.add(label_timer_filtragem);
         frame.add(panel_filtragem);
