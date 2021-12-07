@@ -1,14 +1,12 @@
-import com.bees.brewery.Maquina;
-import com.bees.brewery.MaquinaMalteacao;
-import com.bees.brewery.Processo;
-import com.bees.brewery.ProcessoMalteacao;
+import com.bees.brewery.domain.Maquina;
+import com.bees.brewery.domain.MaquinaMalteacao;
+import com.bees.brewery.domain.Processo;
+import com.bees.brewery.domain.ProcessoMalteacao;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Observable;
-
-import static org.junit.Assert.*;
 
 public class MaquinaMalteacaoTest {
 
@@ -23,7 +21,8 @@ public class MaquinaMalteacaoTest {
 
     @Test
     public void checkIfExecuteMethodReturnsTrue() {
-        Boolean success = maquina.executar(processo, new Observable(), new Observable());
+        Observable anyObservable = new Observable();
+        Boolean success = maquina.executar(processo, anyObservable, anyObservable);
 
         Assert.assertTrue(success);
     }

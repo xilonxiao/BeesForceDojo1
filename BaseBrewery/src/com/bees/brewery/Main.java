@@ -1,5 +1,7 @@
 package com.bees.brewery;
 
+import com.bees.brewery.ui.BreweryUI;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -12,7 +14,7 @@ public class Main {
 //            float resultado = maquinaMalteacao.getProdutoFinal();
 //        }
 
-        SwingExamples examples = new SwingExamples();
+        BreweryUI examples = new BreweryUI();
         examples.execute();
     }
 }

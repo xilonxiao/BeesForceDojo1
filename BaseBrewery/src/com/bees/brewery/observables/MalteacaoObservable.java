@@ -1,4 +1,4 @@
-package com.bees.brewery;
+package com.bees.brewery.observables;
 
 import java.util.Observable;
 

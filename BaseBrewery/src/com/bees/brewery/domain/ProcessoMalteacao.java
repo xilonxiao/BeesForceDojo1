@@ -1,4 +1,8 @@
-package com.bees.brewery;
+package com.bees.brewery.domain;
+
+import com.bees.brewery.core.Status;
+import com.bees.brewery.observables.MalteacaoObservable;
+import com.bees.brewery.observables.StatusObservable;
 
 import java.util.Arrays;
 import java.util.List;

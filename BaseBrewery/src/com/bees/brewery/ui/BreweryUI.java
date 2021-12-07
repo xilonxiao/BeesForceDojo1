@@ -1,9 +1,18 @@
-package com.bees.brewery;
+package com.bees.brewery.ui;
+
+import com.bees.brewery.domain.Maquina;
+import com.bees.brewery.domain.MaquinaMalteacao;
+import com.bees.brewery.domain.Processo;
+import com.bees.brewery.domain.ProcessoMalteacao;
+import com.bees.brewery.core.Grao;
+import com.bees.brewery.core.Status;
+import com.bees.brewery.observables.MalteacaoObservable;
+import com.bees.brewery.observables.StatusObservable;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class SwingExamples {
+public class BreweryUI {
 
     MalteacaoObservable malteacaoObservable = new MalteacaoObservable();
     StatusObservable statusObservable = new StatusObservable();

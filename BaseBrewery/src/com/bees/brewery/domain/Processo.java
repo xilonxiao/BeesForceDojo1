@@ -1,4 +1,4 @@
-package com.bees.brewery;
+package com.bees.brewery.domain;
 
 import java.util.Observable;
 

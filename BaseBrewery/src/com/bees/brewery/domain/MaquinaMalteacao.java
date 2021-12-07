@@ -1,4 +1,6 @@
-package com.bees.brewery;
+package com.bees.brewery.domain;
+
+import com.bees.brewery.core.RandomUtil;
 
 import java.util.Observable;
 

@@ -1,4 +1,6 @@
-package com.bees.brewery;
+package com.bees.brewery.observables;
+
+import com.bees.brewery.core.Status;
 
 import java.util.Observable;
 
