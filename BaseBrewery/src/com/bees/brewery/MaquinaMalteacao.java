@@ -2,13 +2,13 @@ package com.bees.brewery;
 
 public class MaquinaMalteacao extends Maquina {
 
-    private static float CAPACIDADE = 1000;
-    private static float VAZAO = 100;
-    private static int TAXA_PERDA_MIN = 1;
-    private static int TAXA_PERDA_MAX = 5;
+    public static float CAPACIDADE = 1000;
+    public static float VAZAO = 100;
+    public static int TAXA_PERDA_MIN = 1;
+    public static int TAXA_PERDA_MAX = 5;
 
     @Override
-    protected Boolean executar(Processo p) {
+    public Boolean executar(Processo p) {
         return p.executar();
     }
 
@@ -29,6 +29,6 @@ public class MaquinaMalteacao extends Maquina {
 
     @Override
     public float getTaxaDePerdas() {
-        return (float) RandomUtil.getRandom(TAXA_PERDA_MIN, TAXA_PERDA_MAX);
+        return (float) RandomUtil.getRandom(TAXA_PERDA_MIN, TAXA_PERDA_MAX) / 100;
     }
 }

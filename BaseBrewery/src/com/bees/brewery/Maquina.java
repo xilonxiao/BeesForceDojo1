@@ -69,5 +69,5 @@ public abstract class Maquina {
      * @param p processo
      * @return true se com sucesso, false com falha.
      */
-    protected abstract Boolean executar(Processo p /* processo. Ex: Moagem, Filtragem, Separação */);
+    public abstract Boolean executar(Processo p /* processo. Ex: Moagem, Filtragem, Separação */);
 }
